@@ -1,0 +1,79 @@
+Temă realizată de: Crăciunoiu Cezar
+
+Tema 2: Hit the Road
+
+Pentru a rezolva cerințele date, programul principal, aflat in tema2.cpp, se
+folosește și de alte 4 fișiere header: graph.h hash.h hashfunctions.h și
+HTRoad.h. În fișierul hashfunctions.h se află funcții de hash care transformă
+un string în int, un nod cu nume string în int și o funcție ce transforma un
+int în alt int, în caz că se doreste folosirea numelor nodurilor sub formă
+de int în loc de string.
+În fisierul hash.h se află implementarea generică a unui Hashtable, utilizat
+pentru stocarea nodurilor din problemă. Structura unui element din hashtable
+are forma cheie-valoare unde valorile sunt păstrate în liste pentru a rezolva
+problema coliziunilor. Clasa Hashtable are următoarele metode:
+
+	- Constructor cu parametri ce alocă spațiu pentru elemente;
+	- Constructor fără parametri;
+	- Operator de assignment în caz ca se doreste copierea unei tabele;
+	- Destructor ce eliberează memoria ocupată de elemente;
+	- Add -> adaugă un element la poziția dată de funcția de hash;
+	- Remove -> elimină elementul dorit din lista corespunzătoare;
+	- GetValue -> returnează lista de la o anumită valoare;
+	- GetValueP -> returnează un pointer la lista de la o anumită valoare;
+	- Update -> înlocuieste lista de la o pozitie cu altă listă;
+	- HasKey -> verifică dacă o anumită poziție conține elemente;
+	- size -> returnează numărul de liste care nu sunt goale;
+	- Size_Max -> returnează numărul maxim de elemente ce pot fi conținute;
+	- factor -> returnează factorul de umplere a tabelei;
+
+Clasa Hashtable este folosită de clasa Graph conținută în fișierul graph.h. Un
+nod al grafului are structura de forma nume, informație, vector de vecini,
+în general informația fiind păstrată într-o structură. Clasa Graph are
+următoarele metode:
+	- Constructor ce asignează funcțiile de hash și inițializează o tabelă;
+	- Destructor vid ce eliberează memoria grafului si a tabelei;
+	- addNode -> construiește un nod și îl adaugă/ sau îl adaugă direct;
+	- addEdge -> adaugă o muchie în vectorul unui nod;
+	- removeEdge -> elimină o muchie din vectorului unui nod;
+	- HasEdge -> verifică dacă există legatură între două noduri date;
+	- getsize -> returnează marimea grafului;
+	- getMuchii -> returnează muchiile nodului dorit, dintr-un bucket anume;
+	- Ptabela -> returnează un pointer la hashtable-ul grafului în caz că se
+		doresc a se efectua operații mai specifice.
+	- DFS -> metodă ce implementează algoritmul Depth First Search recursiv în
+		cazul în care informația de vizitare este păstrată în hashtable. Se
+		folosește de o funcție de vizitare pentru a efectua acest lucru.
+
+În fișierul tema2.cpp se află implementarea principală a programului. Se
+definește structura Einfo pentru câmpul info al grafului. Se definește și
+funcția de vizitare a nodurilor ce verifică dacă un nod a fost vizitat, cât și
+marchează un nod ca vizitat. Se inițializează doua grafuri, unul simplu și
+unul transpus, se adaugă nodurile, cât și muchiile pentru cele două. Se
+apelează funcția Task1 ce rezolvă primul task (funcțiile ce rezolvă task-urile
+sunt explicate la final), apoi se apelează funcția ce rezolvă al doilea task.
+Se completează tabela grafului cu benzinăriile date. În tot programul tabela
+are mărimea numărul de orase înmulțit cu 1.35 pentru a asigura o mai bună
+răspândire a datelor. Se citește numărul de orașe ce se doresc a fi verificate,
+apoi se citesc orașele, dacă la execuția task-ului 2 s-a obținut că harta este
+validă atunci nu se mai fac verificările pentru task-ul 3. Altfel, se execută
+task-ul 3 și dacă se găsesc orașe fără drum față de punctul de plecare se
+afișează la final un enter.
+
+În fișierul HTRoad.h se află rezolvarea task-urilor:
+Pentru task-ul 1 se alege să se parcurgă întreaga tabelă a grafului și să se
+verifice care oraș conține cele mai multe autostrăzi. Pentru orașele cu același
+număr de autostrăzi se alege lexicografic. La final se afișează rezultatul
+task-ului.
+Pentru task-ul 2 se pornește un DFS pe graf și, dacă se găsesc orașe nevizitate
+se returnează fals. Se pornește un DFS din același punct pe graful transpus și
+se face aceeași verificare. La final se returnează adevărat, însemnând că
+graful este tare conex.
+Pentru task-ul 3 funcția se apelează de câte ori se cere. Se marchează nodurile
+grafului și a celui transpus ca nevizitate și se ruleaza câte un DFS pentru
+fiecare din ele. Apoi, se trece în același timp prin cele grafuri și, dacă se
+găsesc noduri la care nu s-a ajuns în oricare, se afisează mesajul dorit și
+se salvează într-un array de string-uri aceste noduri. Se sortează acest
+array și se afișează.
+Deoarece rezolvările task-urilor 4 și 5 nu au fost aduse într-o stare
+funcționabilă s-a ales să nu fie incluse. 

@@ -1,0 +1,77 @@
+﻿Temă realizată de: Crăciunoiu Cezar
+
+
+
+Tema 1: Robot Planning
+
+Pe lângă programul principal ce se află in main.cpp, acesta se mai
+ ajută și de alte trei fișiere de header: stack.h deque.h robot.h.
+Header-ele stack și deque sunt implementate generic.
+Pornind în sens invers, header-ul stack.h conține o clasă ce definește un 
+ResizableArray cu metodele de rigoare:
+
+	push - adaugă un element la începul stivei;
+	pop - scoate un element de la începutul stivei;
+	top - returneaza vârful stivei;
+	empty - afișează dacă stiva este goală;
+
+Constructorul creează un vector care urmează a fi redimensionat în funcție de
+cât de plin este. Dimensiunea acestuia este dublată sau înjumătățită în funcție
+de necesitate. Verificarea se face la fiecare adăugare/scoatere de elemente.
+Header-ul deque.h reprezintă o coadă cu două capete ce se bazează pe ideea
+de DoublyLinkedList. Primul și ultimul element se pot accesa ușor definindu-se
+următoarele metode:
+
+	addLast - adaugă un nod la finalul cozii;
+	addFirst - adaugă un nod la începutul cozii;
+	removeLast - elimină un element de la finalul cozii;
+	removeFirst - elimină primul element al cozii;
+	showFirst - returnează primul element;
+	showLast - returnează ultimul element;
+	isEmpty - returnează dacă coada este goală sau nu;
+	size - returnează marimea cozii;
+
+Constructorii inițializează lista, iar destructorul parcurge lista,
+eliberând memoria. Fiecare nod are 3 elemente, datele, un pointer 
+către următorul element și unul către cel anterior.
+Se precizează că pentru stack.h și deque.h s-a urmat scheletul
+din laboratorul trei și patru.
+Header-ul robot.h conține majoritatea metodelor ce lucrează cu roboții.
+Structura unui robot se folosește de un operator de assignment și de un
+constructor pentru a ușura lucrul cu aceasta.
+Metodele din robot.h sunt:
+
+	Add - adaugă la început sau final elemente în coada de execuție
+	în funcție de prioritate, folosindu-se de metodele definite in deque.h;
+	Execute - ia/pune în hartă numărul de cutii cerut, ținând cont
+	de toate condițiile, adică scoate primul element din coada și execută
+	comanda aflată acolo asupra celulei dorite;
+
+	LastCommand - returnează ultimul element din stiva în care sunt ținute
+	comenzile executate;
+
+	PrintCommands - pivotează toate elementele din coadă,
+	afișând fiecare element, adică, pe scurt, urmează pașii:
+	showFirst-Afisare-removeFirst-addLast de size ori;
+
+	HowManyBoxes - returnează numărul de cutii ce le deține robotul;
+	SetId - pune id-ul fiecărui robot, metodă utilă la început;
+
+	UndoExe - execută în mod inversat ultima comandă și apoi adaugă pe
+	cea veche înapoi în coadă;
+
+	UndoAdd - scoate, în functie de prioritate, de la începutul/sfârsitul cozii
+	elemente, în funcție de prioritate;
+
+	Increment - pivotează toate elementele și incrementează timpul urmând pașii
+	showFirst-Incrementare-removeFirst-addLast de size ori;
+
+În fișierul de main se citesc dimensiunile matricei și se alocă matricea
+urmând sa fie citită. Se parcurge apoi fiecare linie din fișierul
+din care se citeste și, în funcție de comanda dată, se citesc datele și
+se prelucrează în diferite moduri, adică pentru fiecare comandă citită restul
+elementelor se citesc diferit. Dacă s-a executat un if o variabila booleana
+devine falsă pentru a mai evita evaluarea fiecarei condiții pe deplin.
+Bucla în care se află întreg programul se parcurge atât timp cât sunt elemente
+de citit în fișierul de intrare. La final se eliberează memoria ocupată.
+

@@ -1,0 +1,71 @@
+Crăciunoiu Cezar 314CA
+Dragomir Adrian 314CA
+Tema 3
+
+-- Optical Character Recognition pe cifre scrise de mână --
+
+În implementarea temei au fost luate în considerare funcțiile din scheletul
+oferit. Acestea fiind în număr de 11, au fost împarțite astfel:
+-- make_leaf - Crăciunoiu Cezar
+-- same_class - Dragomir Adrian
+-- get_entropy_by_indexes - Crăciunoiu Cezar
+-- compute_unique - Dragomir Adrian
+-- get_split_as_indexes - Crăciunoiu Cezar
+-- random_dimesions - Crăciunoiu Cezar
+-- predict(DecisionTree) - Crăciunoiu Cezar
+-- predict(RandomForest) - Crăciunoiu Cezar
+-- get_random_samples - Crăciunoiu Cezar
+-- find_best_split - Crăciunoiu Cezar/Dragomir Adrian
+-- train - Crăciunoiu Cezar/Dragomir Adrian
+Funcțiile în ordine:
+1. make_leaf
+Funcția make_leaf verifică dacă toate samples-urile au aceeasi clasa, dacă da,
+salvează rezultatul în frunză, dacă nu, salvează clasa ce apare cel mai des,
+adică cifra ce apare cel mai des.
+2. same_class
+Funcția same_class parcurge toate samples-urile primite si verifică primul
+element. Dacă se găsește măcar unul diferit, înseamnă că nu au aceeasi clasă.
+3. get_entropy_by_indexes
+Funcția calculează entropia, folosindu-se de formula dată. Se ia in calcul dacă
+vectorul de samples este gol și cazul de log(0) pentru evitarea erorilor.
+4. compute_unique
+Funcția alege mai întai valorile de pe coloana dată. Apoi, le sortează și le
+unicizează. La final redimensionează vectorul pentru a elimina valorile
+neunice și îl returnează.
+5. get_split_as_indexes
+Funcția aplică condiția dată pe fiecare element din samples și adaugă în stânga
+sau în dreapta indecșii și returnează o pereche.
+6. random_dimensions
+În funcție de dimensiunea dată, generează floor(sqrt(size)) dimensiuni mai mici
+ca size folosind o funcție de random. Dacă se generează numărul 0, se continuă
+să se genereze până când se obține ceva diferit. Dacă numărul este unic se
+adaugă în vectorul de afișat, altfel se continuă generarea.
+7. predict(DecisionTree)
+Se verifică dacă nodul este o frunză, dacă da, se returnează informația lui,
+dacă nu, se pune condiția dată și se pornește o căutare pe arbore cu un
+pointer. Se caută în arbore până când se găsește o frunză.
+8. predict(randomForest)
+Se interoghează fiecare arbore cu imaginea dată și se salvează rezultatul. Apoi
+se verifică ce cifră a fost returnată cel mai des de către arbori.
+9. get_random_samples
+Pentru a alege liniile din matricea dată se utilizează un vector în care se
+marchează ce linii au fost deja selectate pentru a garanta că se aleg linii
+diferite. Dacă se generează un număr care a mai fost generat deja, se parcurge
+liniar vectorul până se găsește o linie nefolosită.
+10. find_best_split
+Se calculează entropia parintelui, apoi pentru fiecare dimensiune se calculează
+liniile unice. Pentru elementele unice rămase se calculează splitul ca indecși
+și dacă copilul drept sau cel stâng sunt vizi înseamnă că splitul nu este bun,
+altfel se calculează information gain-ul și se verifică daca este maxim. Dacă
+toate spliturile sunt proaste înseamnă că nodul trebuie să fie o frunză.
+Din cauza unei erori nedepistate nu se poate ajunge în cazul în care un nod
+este frunză ceea ce face algoritmul să ruleze la infinit. Pentru a nu îngreuna
+serviciul de testare s-a ales să se comenteze liniile ce salvează indexul și
+valoarea ce trebuie returnată.
+11. train
+Funcția ce antrenează arborii. Mai întâi verifică dacă samples-urile au aceeași
+clasă, altfel calculează cel mai bun split pentru nodul acela. Se poate obține
+că nodul e o frunză, caz în care execuția se termină, sau că nodul este nod
+de decizie, se alocă memorie pentru copii și se pornește recursiv pe aceștia.
+
+
